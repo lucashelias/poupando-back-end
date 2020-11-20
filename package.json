@@ -1,0 +1,35 @@
+{
+  "name": "poupando-back-end",
+  "version": "1.0.0",
+  "description": "Poupando back-end com Express, Sequelize e PostgreSQL",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucashelias/poupando-back-end.git"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "sequelize",
+    "postgresql",
+    "rest",
+    "api"
+  ],
+  "author": "Lucas H Elias",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lucashelias/poupando-back-end/issues"
+  },
+  "homepage": "https://github.com/lucashelias/poupando-back-end#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "pg": "^8.5.1",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.3.5"
+  }
+}
