@@ -1,22 +1,24 @@
 const db = require("../models");
+// const usuario = require("../models/usuario.model");
 const Usuario = db.usuario;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Usuario
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.title) {
-      res.status(400).send({
-        message: "Inserção - A informação não pode ser nula!" 
-      });
-      return;
-    }
+    // if (res.status(400).send) {
+    //     message: "Inserção - Ocorreu uma falha na inserção do usuário!" 
+    //     return;
+    // };
   
     // Create a Usuario
-    const tutorial = {
-      title: req.body.title,
-      description: req.body.description,
-      published: req.body.published ? req.body.published : false
+    const usuario = {
+      nome: req.body.nome,
+      sobrenome: req.body.sobrenome,
+      email: req.body.email,
+      usuario: req.body.usuario,
+      senha: req.body.senha,
+      dataCadastro: req.body.dataCadastro
     };
   
     // Save Tutorial in the database
@@ -34,7 +36,7 @@ exports.create = (req, res) => {
 
 // Retrieve all usuario from the database.
 exports.findAll = (req, res) => {
-    const title = req.query.title;
+    const nome = req.query.nome;
     var condition = nome ? { nome: { [Op.iLike]: `%${nome}%` } } : null;
   
     Usuario.findAll({ where: condition })
