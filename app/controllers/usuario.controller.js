@@ -1,3 +1,4 @@
+const { usuario } = require("../models");
 const db = require("../models");
 // const usuario = require("../models/usuario.model");
 const Usuario = db.usuario;
@@ -134,10 +135,12 @@ exports.deleteAll = (req, res) => {
         });
       });
   };
-// Find all published usuario
-exports.findAllPublished = (req, res) => {
+// Valida o usuário e senha (login)
+exports.validaUsuarioSenha = (req, res) => {
+  const usuario = req.body.usuario;
+  const senha = req.body.senha;
     
-    Usuario.findAll({ where: { published: true } })
+    Usuario.findAll({ where: { usuario: usuario, senha: senha } })
       .then(data => {
         res.send(data);
       })
