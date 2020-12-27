@@ -18,25 +18,27 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const db = require("./app/models");
+const Role = db.role;
 db.sequelize.sync();
 // drop the table if it already exists
 // db.sequelize.sync({ force: true }).then(() => {
 //   console.log("Drop and re-sync db.");
+//   initial()
 //  });
 
- var user = {
-  nome: "Lucas ",
-  sobrenome: "Henrique Elias",
-  email: "lucas.he.elias@gmail.com",
-  usuario: "admin",
-  senha: "lucas"
-};
+//  var user = {
+//   nome: "Lucas ",
+//   sobrenome: "Henrique Elias",
+//   email: "lucas.he.elias@gmail.com",
+//   usuario: "admin",
+//   senha: "lucas"
+// };
 
-db.usuario.create(user, function(e) {
-  if (e) {
-      throw e;
-  }
-});
+// db.usuario.create(user, function(e) {
+//   if (e) {
+//       throw e;
+//   }
+// });
 
 
 
@@ -45,6 +47,7 @@ app.get("/", (req, res) => {
   res.json({ message: "Bem Vindo a API Poupando." });
 });
 
+require("./app/routes/auth.routes")(app);
 require("./app/routes/usuario.routes")(app);
 
 // set port, listen for requests

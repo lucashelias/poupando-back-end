@@ -1,6 +1,5 @@
 const { usuario } = require("../models");
 const db = require("../models");
-// const usuario = require("../models/usuario.model");
 const Usuario = db.usuario;
 const Op = db.Sequelize.Op;
 

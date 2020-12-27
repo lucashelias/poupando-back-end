@@ -14,14 +14,14 @@ exports.signup = (req, res) => {
     nome: req.body.nome,
     sobrenome: req.body.sobrenome,
     email: req.body.email,
-    suario: req.body.usuario,
-    senha: bcrypt.hashSync(req.body.password, 8)
+    usuario: req.body.usuario,
+    senha: bcrypt.hashSync(req.body.senha, 8)
   })
     .then(user => {
       if (req.body.roles) {
         Role.findAll({
           where: {
-            nome: {
+            name: {
               [Op.or]: req.body.roles
             }
           }
