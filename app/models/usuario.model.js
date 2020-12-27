@@ -21,12 +21,6 @@ module.exports = (sequelize, Sequelize) => {
         senha: {
             type: Sequelize.STRING
         },
-        dataCadastro: {
-            type: Sequelize.DATE
-        },
-        dataAlteracao: {
-            type: Sequelize.DATE
-        }
     });
 
         return Usuario;

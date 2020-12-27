@@ -3,6 +3,28 @@ const db = require("../models");
 const Usuario = db.usuario;
 const Op = db.Sequelize.Op;
 
+
+// ==================== INICIO Seção da validação da autenticação ==============
+exports.allAccess = (req, res) => {
+  res.status(200).send("Public Content.");
+};
+
+exports.userBoard = (req, res) => {
+  res.status(200).send("User Content.");
+};
+
+exports.adminBoard = (req, res) => {
+  res.status(200).send("Admin Content.");
+};
+
+exports.moderatorBoard = (req, res) => {
+  res.status(200).send("Moderator Content.");
+};
+
+// ==================== FIM Seção da validação da autenticação ==============
+
+
+
 // Create and Save a new Usuario
 exports.create = (req, res) => {
     // Validate request
@@ -18,7 +40,6 @@ exports.create = (req, res) => {
       email: req.body.email,
       usuario: req.body.usuario,
       senha: req.body.senha,
-      dataCadastro: req.body.dataCadastro
     };
   
     // Save Tutorial in the database
