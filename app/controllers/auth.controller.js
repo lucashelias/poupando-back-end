@@ -43,6 +43,11 @@ exports.signup = (req, res) => {
 };
 
 exports.signin = (req, res) => {
+
+  if (req.body.usuario == null) {
+    return res.status(402).send({ message: "Obrigatório informar o usuário." });
+  }
+
   User.findOne({
     where: {
       usuario: req.body.usuario
