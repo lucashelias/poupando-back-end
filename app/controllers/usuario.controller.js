@@ -40,6 +40,7 @@ exports.create = (req, res) => {
       email: req.body.email,
       usuario: req.body.usuario,
       senha: req.body.senha,
+      status: req.body.status
     };
   
     // Save Tutorial in the database

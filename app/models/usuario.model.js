@@ -21,6 +21,9 @@ module.exports = (sequelize, Sequelize) => {
         senha: {
             type: Sequelize.STRING
         },
+        status: {
+            type: Sequelize.STRING
+        },
     });
 
         return Usuario;
