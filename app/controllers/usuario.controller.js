@@ -3,6 +3,8 @@ const db = require("../models");
 const Usuario = db.usuario;
 const Op = db.Sequelize.Op;
 
+var bcrypt = require("bcryptjs");
+
 
 // ==================== INICIO Seção da validação da autenticação ==============
 exports.allAccess = (req, res) => {
@@ -39,7 +41,7 @@ exports.create = (req, res) => {
       sobrenome: req.body.sobrenome,
       email: req.body.email,
       usuario: req.body.usuario,
-      senha: req.body.senha,
+      senha: bcrypt.hashSync(req.body.senha, 8),
       status: req.body.status
     };
   
