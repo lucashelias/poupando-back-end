@@ -49,6 +49,7 @@ app.get("/", (req, res) => {
 
 require("./app/routes/auth.routes")(app);
 require("./app/routes/usuario.routes")(app);
+require("./app/routes/user_role.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
@@ -59,16 +60,16 @@ app.listen(PORT, () => {
 function initial() {
   Role.create({
     id: 1,
-    name: "user"
+    name: "Usuário"
   });
  
   Role.create({
     id: 2,
-    name: "moderator"
+    name: "Moderador"
   });
  
   Role.create({
     id: 3,
-    name: "admin"
+    name: "Administrador"
   });
 }

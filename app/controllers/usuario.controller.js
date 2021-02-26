@@ -29,12 +29,7 @@ exports.moderatorBoard = (req, res) => {
 
 // Create and Save a new Usuario
 exports.create = (req, res) => {
-    // Validate request
-    // if (res.status(400).send) {
-    //     message: "Inserção - Ocorreu uma falha na inserção do usuário!" 
-    //     return;
-    // };
-  
+    
     // Create a Usuario
     const usuario = {
       nome: req.body.nome,
