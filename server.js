@@ -8,6 +8,8 @@ var corsOptions = {
   origin: "http://localhost:4200",
   optionsSuccessStatus: 200
 };
+var bcrypt = require("bcryptjs");
+
 
 app.use(cors(corsOptions));
 
@@ -19,26 +21,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const db = require("./app/models");
 const Role = db.role;
-db.sequelize.sync();
+//db.sequelize.sync();
 // drop the table if it already exists
-// db.sequelize.sync({ force: true }).then(() => {
-//   console.log("Drop and re-sync db.");
-//   initial()
-//  });
+db.sequelize.sync({ force: true }).then(() => {
+  console.log("Drop and re-sync db.");
+  initial(),
+  createUsersPadrao(),
+  vinculaRoleUsersPadrao()
+ });
 
-//  var user = {
-//   nome: "Lucas ",
-//   sobrenome: "Henrique Elias",
-//   email: "lucas.he.elias@gmail.com",
-//   usuario: "admin",
-//   senha: "lucas"
-// };
-
-// db.usuario.create(user, function(e) {
-//   if (e) {
-//       throw e;
-//   }
-// });
 
 
 
@@ -73,3 +64,61 @@ function initial() {
     name: "Administrador"
   });
 }
+
+function createUsersPadrao(){
+  
+var user =[
+  {
+  nome: "Administrador ",
+  sobrenome: "Sistema",
+  email: "adm_poupando@gmail.com",
+  usuario: "admin",
+  senha: bcrypt.hashSync("admin@123", 8),
+  status: "A"
+ },
+ {
+ nome: "Demonstração ",
+ sobrenome: "Sistema",
+ email: "demo_poupando@gmail.com",
+ usuario: "demo",
+ senha: bcrypt.hashSync("demo@123", 8),
+ status: "A"
+ }
+];
+
+  for (let i = 0; i < user.length; i++) {
+    db.usuario.create(user[i])
+    .then(data => {
+      ""
+    })
+    .catch(err => {
+      console.log(err) 
+    });
+    
+  }
+}
+
+function vinculaRoleUsersPadrao(){
+  
+  var vinculaRoleUsersPadrao =[
+    {
+      usuarioId: "1",
+      roleId: "3",
+   },
+   {
+      usuarioId: "2",
+      roleId: "3",
+   }
+  ];
+  
+    for (let i = 0; i < vinculaRoleUsersPadrao.length; i++) {
+      db.user_role.create(vinculaRoleUsersPadrao[i])
+      .then(data => {
+        console.log(data) 
+      })
+      .catch(err => {
+        console.log(err) 
+      });
+      
+    }
+  }
