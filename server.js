@@ -21,14 +21,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const db = require("./app/models");
 const Role = db.role;
-//db.sequelize.sync();
+db.sequelize.sync();
 // drop the table if it already exists
-db.sequelize.sync({ force: true }).then(() => {
-  console.log("Drop and re-sync db.");
-  initial(),
-  createUsersPadrao(),
-  vinculaRoleUsersPadrao()
- });
+// db.sequelize.sync({ force: true }).then(() => {
+//   console.log("Drop and re-sync db.");
+//   initial(),
+//   createUsersPadrao(),
+//   vinculaRoleUsersPadrao()
+//  });
 
 
 
