@@ -69,7 +69,7 @@ function createUsersPadrao(){
   
 var user =[
   {
-  nome: "Administrador ",
+  nome: "Administrador",
   sobrenome: "Sistema",
   email: "adm_poupando@gmail.com",
   usuario: "admin",
@@ -77,7 +77,7 @@ var user =[
   status: "A"
  },
  {
- nome: "Demonstração ",
+ nome: "Demonstração",
  sobrenome: "Sistema",
  email: "demo_poupando@gmail.com",
  usuario: "demo",
