@@ -45,6 +45,33 @@ exports.create = (req, res) => {
       });
   };
 
+ exports.getUserRoleByID = (req, res) => {
+      
+      const usuarioId = req.body.usuarioId
+    
+      // Usuario_Roles.findByPk(usuarioId)
+      Usuario_Roles.findAll({
+        raw: true,
+        attributes: attributes,
+        include:[{
+          model: db.usuario,
+          require: true,
+          attributes: ['id'],
+        },
+        {
+          model: db.role,
+          require: true,
+          attributes: ['name'],
+        }],
+      })
+        .then(data => {
+          res.send(data);
+        })
+        .catch(err => {
+          res.send(err);
+        });
+    };
+
 // exports.findAll = (req, res) => {
 //     const nome = req.query.nome;
 //     var condition = nome ? { nome: { [Op.iLike]: `%${nome}%` } } : null;

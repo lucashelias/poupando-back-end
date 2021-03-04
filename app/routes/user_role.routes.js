@@ -33,9 +33,8 @@
     var router = require("express").Router();
 
     router.post("/", controller.create);
-  
     
-    // router.get("/", controller.findAll);
+    router.get("/:id", controller.getUserRoleByID);
   
     
     // router.put("/login", controller.validaUsuarioSenha);
