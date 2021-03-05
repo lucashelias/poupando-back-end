@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Role = sequelize.define("roles", {
+    const role = sequelize.define("role", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true
@@ -8,7 +8,9 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING
       },
      
-    });
+    },
+    
+    {freezeTableName: true});
   
-    return Role;
+    return role;
   };

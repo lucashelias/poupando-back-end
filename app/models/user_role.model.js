@@ -1,10 +1,25 @@
-const usuario = require("../models/usuario.model");
-const role = require("../models/role.model");
-var Sequelize = require('sequelize');
-var sequelize = Sequelize
+// const db = {};
+// const dbConfig = require("../config/db.config.js");
 
-//  module.exports = (sequelize, Sequelize) => {
-    var Usuario_Roles = sequelize.define("usuario_role", {
+// const Sequelize = require("sequelize");
+// const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
+//   host: dbConfig.HOST,
+//   dialect: dbConfig.dialect,
+//   operatorsAliases: false,
+
+//   pool: {
+//     max: dbConfig.pool.max,
+//     min: dbConfig.pool.min,
+//     acquire: dbConfig.pool.acquire,
+//     idle: dbConfig.pool.idle
+//   }
+// });
+
+// db.Sequelize = Sequelize;
+// db.sequelize = sequelize;
+
+  module.exports = (sequelize, Sequelize) => {
+    const usuario_role = sequelize.define("usuario_role", {
         id: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
@@ -13,17 +28,25 @@ var sequelize = Sequelize
         usuarioId: {
             type: Sequelize.INTEGER,
             allowNull: false,
+            references: {         // User hasMany WorkingDays n:n
+                model: 'usuario',
+                key: 'id'
+              }
         },
         roleId: {
             type: Sequelize.INTEGER,
             allowNull: false,
+            references: {         // User hasMany WorkingDays n:n
+                model: 'role',
+                key: 'id'
+              }
         },
     },
         {freezeTableName: true});
-
-    //      return Usuario_Roles;
-    //  };
-
-    Usuario_Roles.belongsTo(models.usuario, {as: 'usuario', foreignKey: 'usuarioId', allowNull: false});
-    Usuario_Roles.belongsTo(models.role, {as: 'role', foreignKey: 'roleId', allowNull: false});
-    module.exports = Usuario_Roles;
+        usuario_role.associate = function(models) {
+           usuario_role.belongsTo(models.usuario, {as: 'usuario', foreignKey: 'usuarioId', allowNull: false});
+           usuario_role.belongsTo(models.role, {as: 'role', foreignKey: 'roleId', allowNull: false});
+        }
+        return usuario_role;
+        
+     };

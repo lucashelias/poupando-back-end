@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Usuario = sequelize.define("usuario", {
+    const usuario = sequelize.define("usuario", {
         id: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
@@ -23,9 +23,11 @@ module.exports = (sequelize, Sequelize) => {
         },
         status: {
             type: Sequelize.STRING
-        }
+        },
         
-        });
+    },
 
-        return Usuario;
+    {freezeTableName: true});
+    
+        return usuario;
   };
