@@ -1,4 +1,4 @@
-    const controller = require("../controllers/user_role.controller.js");
+    const controller = require("../controllers/role.controller.js");
     const { authJwt } = require("../middleware");
   
     module.exports = function(app) {
@@ -31,13 +31,14 @@
       );
     
     var router = require("express").Router();
-
-    router.post("/", controller.create);
     
-    router.get("/:id", controller.getUserRoleByID);
-
     router.get("/", controller.findAll);
-        
+
+    // router.post("/", controller.create);
+    
+    // router.get("/:id", controller.getRoleByID);
+  
+    
     // router.put("/login", controller.validaUsuarioSenha);
   
     
@@ -52,6 +53,6 @@
     
     // router.delete("/", controller.deleteAll);
   
-    app.use("/api/role_user", router);
+    app.use("/api/role", router);
     
     };

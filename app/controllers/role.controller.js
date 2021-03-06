@@ -1,6 +1,6 @@
-const { usuario_role } = require("../models");
+const { role } = require("../models");
 const db = require("../models");
-const Usuario_Roles = db.user_role;
+const Role = db.role;
 const Op = db.Sequelize.Op;
 
 var bcrypt = require("bcryptjs");
@@ -26,57 +26,18 @@ exports.moderatorBoard = (req, res) => {
 // ==================== FIM Seção da validação da autenticação ==============
 
 
-
-//Cria vinculação usuario e permissão (role)
-exports.create = (req, res) => {
-  
-    const usuario_role = {
-      usuarioId: req.body.usuarioId,
-      roleId: req.body.roleId,
-    };
-  
-    Usuario_Roles.create(usuario_role)
-      .then(data => {
-        res.send(data); 
-      })
-      .catch(err => {
-        res.send(err); 
-      
-      });
-  };
-
-  exports.getUserRoleByID = async (req, res) => {
-      
-    await db.sequelize.query(
-    'SELECT r.id, r.name ' +
-    'from usuario u, usuario_role ur, role r ' +
-    'where u."id" = ur."usuarioId" '+
-    'and r."id" = ur."roleId" and u."id" = (:id)'
-    ,{
-      replacements: {id: req.body.usuarioId},
-      type: db.sequelize.QueryTypes.SELECT  
-    }).then(data => {
-          res.send(data);
-        })
-        .catch(err => {
-          console.log(err)
-          res.send(err);
-        });
-  
-  };
-
-  
 exports.findAll = (req, res) => {
-      
-    Usuario_Roles.findAll()
-      .then(data => {
-        res.send(data);
-      })
-      .catch(error => {
-        res.send(error);
-      });
-  };
- 
+       
+  Role.findAll()
+    .then(data => {
+      res.send(data);
+    })
+    .catch(error => {
+      console.log(error)
+      res.send(error);
+    });
+};
+
   
 // exports.findOne = (req, res) => {
 //   const id = req.params.id;
@@ -190,3 +151,18 @@ exports.findAll = (req, res) => {
 //       });
 //   };
 
+// exports.validaUsuarioSenha = (req, res) => {
+//   const usuario = req.body.usuario;
+//   const senha = req.body.senha;
+    
+//     Usuario.findAll({ where: { usuario: usuario, senha: senha } })
+//       .then(data => {
+//         res.send(data);
+//       })
+//       .catch(err => {
+//         res.status(500).send({
+//           message:
+//             err.message || "Ocorreu algum erro ao buscar todos os usuários."
+//         });
+//       });
+//   };
