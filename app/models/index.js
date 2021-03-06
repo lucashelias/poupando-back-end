@@ -1,5 +1,8 @@
-const dbConfig = require("../config/db.config.js");
+const fs = require('fs');
+const path = require('path');
+const basename = path.basename(__filename);
 
+const dbConfig = require("../config/db.config.js");
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
@@ -19,32 +22,20 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.usuario = require("./usuario.model.js")(sequelize, Sequelize);
-db.role = require("./role.model.js")(sequelize, Sequelize);
-db.user_role = require("./user_role.model.js")(sequelize, Sequelize);
+fs
+  .readdirSync(__dirname)
+  .filter(file => {
+    return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
+  })
+  .forEach(file => {
+    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
+    db[model.name] = model;
+  });
 
-// Join model with additional attributes
-// const usuario_roles = sequelize.define('usuario_roles', {
-//   id: {
-//         type: Sequelize.INTEGER,
-//         autoIncrement: true,
-//         primaryKey: true
-//     },
-//   }
-// )
-
-// db.role.belongsToMany(db.usuario, {
-//   through: "usuario_roles",
-//   foreignKey: "roleId",
-//   otherKey: "usuarioId",
-// });
-
-// db.usuario.belongsToMany(db.role, {
-//   through: "usuario_roles",
-//   foreignKey: "usuarioId",
-//   otherKey: "roleId",
-// });
-
-// db.ROLES = ["Usuario", "Moderador", "Administrador"];
+Object.keys(db).forEach(modelName => {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
+});
 
 module.exports = db;
