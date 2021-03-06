@@ -45,6 +45,26 @@ exports.create = (req, res) => {
       });
   };
 
+  exports.getUserRoleByID = async (req, res) => {
+      
+    await db.sequelize.query(
+    'SELECT r.name ' +
+    'from usuario u, usuario_role ur, role r ' +
+    'where u."id" = ur."usuarioId" '+
+    'and r."id" = ur."roleId" and u."id" = (:id)'
+    ,{
+      replacements: {id: req.body.usuarioId},
+      type: db.sequelize.QueryTypes.SELECT  
+    }).then(data => {
+          res.send(data);
+        })
+        .catch(err => {
+          console.log(err)
+          res.send(err);
+        });
+  
+  };
+
   
 // exports.findOne = (req, res) => {
 //   const id = req.params.id;
@@ -61,38 +81,6 @@ exports.create = (req, res) => {
 // };
 
 
-const getUsuarioRole = async (req, res) =>{
-
-  let usuarioRole, query;
-
-  const usuarioId = req.body.usuarioId
-  
-  usuarioRole = await db.sequelize.query('SELECT "r.name" from usuario u, usuario_role ur, role r  where u.id = "ur"."usuarioId" and "r"."id" = "ur"."roleId" and "u"."id" = (:id)',{
-    replacements: {id: req.body.usuarioId},
-    type: db.sequelize.QueryTypes.SELECT  
-  })
-}
-
-
- exports.getUserRoleByID = async (req, res) => {
-      
-      await db.sequelize.query(
-      'SELECT r.name ' +
-      'from usuario u, usuario_role ur, role r ' +
-      'where u."id" = ur."usuarioId" '+
-      'and r."id" = ur."roleId" and u."id" = (:id)'
-      ,{
-        replacements: {id: req.body.usuarioId},
-        type: db.sequelize.QueryTypes.SELECT  
-      }).then(data => {
-            res.send(data);
-          })
-          .catch(err => {
-            console.log(err)
-            res.send(err);
-          });
-    
-    };
 
 // exports.findAll = (req, res) => {
 //     const nome = req.query.nome;

@@ -28,6 +28,10 @@ module.exports = (sequelize, Sequelize) => {
     },
 
     {freezeTableName: true});
+
+    usuario.associate = function(models){
+        usuario.belongsToMany(models.role, {through: "usuario_roles", foreignKey: "usuarioId", otherKey: "roleId"}
+      )};
     
         return usuario;
   };
