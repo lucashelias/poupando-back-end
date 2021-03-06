@@ -45,31 +45,53 @@ exports.create = (req, res) => {
       });
   };
 
- exports.getUserRoleByID = (req, res) => {
+  
+// exports.findOne = (req, res) => {
+//   const id = req.params.id;
+
+//   Usuario.findByPk(id)
+//     .then(data => {
+//       res.send(data);
+//     })
+//     .catch(err => {
+//       res.status(500).send({
+//         message: "Erro ao recuperar as informações do id=" + id
+//       });
+//     });
+// };
+
+
+const getUsuarioRole = async (req, res) =>{
+
+  let usuarioRole, query;
+
+  const usuarioId = req.body.usuarioId
+  
+  usuarioRole = await db.sequelize.query('SELECT "r.name" from usuario u, usuario_role ur, role r  where u.id = "ur"."usuarioId" and "r"."id" = "ur"."roleId" and "u"."id" = (:id)',{
+    replacements: {id: req.body.usuarioId},
+    type: db.sequelize.QueryTypes.SELECT  
+  })
+}
+
+
+ exports.getUserRoleByID = async (req, res) => {
       
-      const usuarioId = req.body.usuarioId
+      await db.sequelize.query(
+      'SELECT r.name ' +
+      'from usuario u, usuario_role ur, role r ' +
+      'where u."id" = ur."usuarioId" '+
+      'and r."id" = ur."roleId" and u."id" = (:id)'
+      ,{
+        replacements: {id: req.body.usuarioId},
+        type: db.sequelize.QueryTypes.SELECT  
+      }).then(data => {
+            res.send(data);
+          })
+          .catch(err => {
+            console.log(err)
+            res.send(err);
+          });
     
-      // Usuario_Roles.findByPk(usuarioId)
-      Usuario_Roles.findAll({
-        raw: true,
-        attributes: attributes,
-        include:[{
-          model: db.usuario,
-          require: true,
-          attributes: ['id'],
-        },
-        {
-          model: db.role,
-          require: true,
-          attributes: ['name'],
-        }],
-      })
-        .then(data => {
-          res.send(data);
-        })
-        .catch(err => {
-          res.send(err);
-        });
     };
 
 // exports.findAll = (req, res) => {
