@@ -53,7 +53,7 @@ exports.create = (req, res) => {
     'where u."id" = ur."usuarioId" '+
     'and r."id" = ur."roleId" and u."id" = (:id)'
     ,{
-      replacements: {id: req.body.usuarioId},
+      replacements: {id: req.params.id},
       type: db.sequelize.QueryTypes.SELECT  
     }).then(data => {
           res.send(data);
