@@ -21,7 +21,7 @@ const db = {};
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
-
+ 
 fs
   .readdirSync(__dirname)
   .filter(file => {

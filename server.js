@@ -40,6 +40,7 @@ require("./app/routes/auth.routes")(app);
 require("./app/routes/usuario.routes")(app);
 require("./app/routes/user_role.routes")(app);
 require("./app/routes/role.routes")(app);
+require("./app/routes/banco.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
